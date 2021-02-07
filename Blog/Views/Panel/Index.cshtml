@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Post>
+
+
+@{
+
+}
+<h2>Admin Panel!</h2>
+<a asp-controller="Panel" asp-action="Edit">
+    Add New Post
+</a>
+
+<div>
+    <ul>
+        @foreach (var post in Model)
+        {
+            <li>
+                @post.Title
+                -
+                <a asp-controller="Panel" asp-action="Edit" asp-route-id="@post.Id">
+                    Edit
+                </a>
+                -
+                <a asp-controller="Panel" asp-action="Remove" asp-route-id="@post.Id">
+                    Remove
+                </a>
+            </li>
+        }
+    </ul>
+</div>

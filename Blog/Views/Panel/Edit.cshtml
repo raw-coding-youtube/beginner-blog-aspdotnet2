@@ -1,0 +1,53 @@
+﻿@model PostViewModel
+
+@{
+
+}
+<link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+<div>
+    <form asp-controller="Panel" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden" />
+        <div>
+            <label>Title</label>
+            <input asp-for="Title" />
+        </div>
+        <div>
+            <label>Description</label>
+            <input asp-for="Description" />
+        </div>
+        <div>
+            <label>Tags</label>
+            <input asp-for="Tags" />
+        </div>
+        <div>
+            <label>Category</label>
+            <select asp-for="Category">
+                <option value="Travel">Travel</option>
+                <option value="Programing">Programing</option>
+                <option value="Photography">Photography</option>
+            </select>
+        </div>
+        <div>
+            <label>Body</label>
+            <textarea id="editor" asp-for="Body"></textarea>
+        </div>
+        <div>
+            <label>Image</label>
+            <input asp-for="CurrentImage" type="hidden" />
+            <input asp-for="Image" />
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+
+@section scripts {
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/lib/Trumbowyg-master/dist/trumbowyg.min.js"></script>
+    <script>
+        $('#editor').trumbowyg();
+
+        // . - class
+        // # - id
+        // nav - html element
+    </script>
+}

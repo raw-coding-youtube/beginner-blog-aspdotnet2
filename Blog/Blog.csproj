@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="PhotoSauce.MagicScaler" Version="0.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Post.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Panel\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot/content/blog/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/**/*.*" CopyToPublishDirectory="Never" />
+    <Content Update="wwwroot/lib/**/dist/**/*.*" CopyToPublishDirectory="Always" />    
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/bundleconfig" /></VisualStudio></ProjectExtensions>
+
+</Project>

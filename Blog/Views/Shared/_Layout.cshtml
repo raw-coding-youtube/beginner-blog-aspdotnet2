@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+
+    <environment include="Development">
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+    <environment include="Production">
+        <link href="~/css/site.min.css" rel="stylesheet" />
+    </environment>
+</head>
+<body>
+    <div>
+        <nav>
+
+            <a asp-controller="Home" asp-action="Index">Home</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-category="Programing">Programing</a>
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Home" asp-action="Index" asp-route-category="Panel">Admin Panel</a>
+                }
+                <a asp-controller="Auth" asp-action="Logout">Logout</a>
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login">Sign In</a>
+            }
+
+        </nav>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", false)
+</body>
+</html>

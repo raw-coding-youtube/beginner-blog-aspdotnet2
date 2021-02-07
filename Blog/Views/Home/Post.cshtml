@@ -1,0 +1,65 @@
+﻿@model Post
+
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.Description = Model.Description;
+    ViewBag.Keywords = $"{Model.Tags?.Replace(",", " ")} {Model.Category}";
+    var base_path = Context.Request.PathBase;
+}
+@*<h2>@Model.Title</h2>
+
+    @if (!String.IsNullOrEmpty(Model.Image))
+    {
+        var image_path = $"/Image/{Model.Image}";
+        <img src="@image_path" width="500"/>
+    }
+
+    <p>@Model.Body</p>*@
+
+<div class="container">
+    <div class="post no-shadow">
+        @if (!String.IsNullOrEmpty(Model.Image))
+        {
+            var image_path = $"{base_path}/Image/{Model.Image}";
+            <img src="@image_path" />
+            <span class="title">@Model.Title</span>
+        }
+    </div>
+    <div class="post-body">
+        @Html.Raw(Model.Body)
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="comment-section">
+            @{
+                await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = 0 });
+            }
+
+            @foreach (var c in Model.MainComments)
+            {
+                <p>
+                    @c.Message --- @c.Created
+                </p>
+                <div style="margin-left: 20px;">
+                    <h4>Sub Comments</h4>
+                    @{
+                        await Html.RenderPartialAsync("_MainComment", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
+                    }
+
+                    @foreach (var sc in c.SubComments)
+                    {
+                        <p>
+                            @sc.Message --- @sc.Created
+                        </p>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div>
+            <a asp-action="Login" asp-controller="Auth">Sign In</a> to comment on this awesome post!
+        </div>
+    }
+</div>
